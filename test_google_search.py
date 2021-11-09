@@ -17,9 +17,9 @@ def test_solution():
     driver.find_element(By.XPATH, "//div[@class='FPdoLc lJ9FBc']//input[@name='btnK']").click()
     search_links = driver.find_elements(By.XPATH, "//h3[@class='LC20lb DKV0Md']")
     # search_links[0].click()
-    link = search_links[1]
+    link = search_links[0]
     driver.execute_script("arguments[0].scrollIntoView();", link)  # scroll down to the element
-    wait.until(EC.element_to_be_clickable(search_links[1]))
-    search_links[1].click()
+    wait.until(EC.element_to_be_clickable(link))
+    link.click()
     assert "Selenium with Python" in driver.page_source, "Given search text is present in the website."
     driver.quit()
