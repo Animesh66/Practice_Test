@@ -20,6 +20,7 @@ def test_solution():
     link = search_links[1]
     driver.execute_script("arguments[0].scrollIntoView();", link)  # scroll down to the element
     # driver.execute_script("arguments[0].style.border='2px solid red';", link)
-    wait.until(EC.element_to_be_clickable(link)).click()
+    wait.until(EC.element_to_be_clickable(link))
+    link.click()
     assert "Selenium with Python" in driver.page_source, "Given search text is present in the website."
     driver.quit()
