@@ -2,11 +2,14 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def test_solution():
     driver = webdriver.Chrome(ChromeDriverManager().install())
+    wait = WebDriverWait(driver, 10)
     driver.get("https://www.google.com/")
     driver.implicitly_wait(10)
     driver.maximize_window()
@@ -14,9 +17,9 @@ def test_solution():
     driver.find_element(By.XPATH, "//div[@class='FPdoLc lJ9FBc']//input[@name='btnK']").click()
     search_links = driver.find_elements(By.XPATH, "//h3[@class='LC20lb DKV0Md']")
     # search_links[0].click()
-    link = search_links[2]
+    link = search_links[1]
     driver.execute_script("arguments[0].scrollIntoView();", link)  # scroll down to the element
-    time.sleep(3)
-    search_links[2].click()
+    wait.until(EC.element_to_be_clickable(search_links[1]))
+    search_links[1].click()
     assert "Selenium with Python" in driver.page_source, "Given search text is present in the website."
     driver.quit()
